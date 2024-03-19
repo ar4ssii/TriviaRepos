@@ -3,6 +3,7 @@ import 'dart:js_util';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'model/RandomTrivia.dart';
 import 'service/getRandomTrivia.dart';
 import 'package:html_unescape/html_unescape.dart';
@@ -18,8 +19,8 @@ class StartTrivia extends StatefulWidget {
 class _StartTriviaState extends State<StartTrivia> {
   final _getRandomTrivia = getRandomTrivia();
   RandomTrivia? _randomTrivia;
-
   String? question;
+  
 
   //inside the _fetchTrivia you put a integer param for category
   _fetchTrivia(int category) async{
@@ -75,10 +76,11 @@ class _StartTriviaState extends State<StartTrivia> {
         backgroundColor: Color(0xff8eaccd),
       ),
       body: Container(
+        margin: EdgeInsets.all(20),
+        padding: EdgeInsets.all(10),
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.all(20),
                     padding: EdgeInsets.all(10),
                     height: 200,
                     width: double.maxFinite,
@@ -86,47 +88,57 @@ class _StartTriviaState extends State<StartTrivia> {
                         color: Color(0xffD7E5CA),
                         borderRadius: BorderRadius.circular(20)
                     ),
-                    child: Text('Question: ${question ?? "loading.."}'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Color(0xffF9F3CC),
-                        borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Row(
+                    child: Column(
                       children: [
+                        Text(
+                    'Category',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text('Question: ${question ?? "loading.."}'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.maxFinite,
+                    height: 40,
+                    child:
                         ElevatedButton(onPressed: (){
                           bool isCorrect =
                               _randomTrivia!.correctAnswer.toLowerCase() == 'true';
                           _showResultDialog(isCorrect);
-                        }, child: Text('True'))
-                      ],
-                    ),
+                        },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xffF9F3CC),
+                            ),
+                            child: Text('True'))
                   ),
-                  SizedBox(height: 20,),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Color(0xffD2E0FB),
-                        borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Row(
-                      children: [
-                        ElevatedButton(onPressed: (){
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.maxFinite,
+                    height: 40,
+                    child: ElevatedButton(onPressed: (){
                           bool isCorrect =
                               _randomTrivia!.correctAnswer.toLowerCase() == 'false';
                           _showResultDialog(isCorrect);
-                        }, child: Text('False'))
-                      ],
-                    ),
+                        },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xffD2E0FB),
+                            ),
+                            child: Text('False'))
                   ),
                 ],
               ),
             ),
     );
   }
-
 }
