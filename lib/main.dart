@@ -45,9 +45,13 @@ class MyApp extends StatelessWidget {
                ),
                child: Text('Start Trivia',style: TextStyle(color: Colors.grey[700]),),
                onPressed: () {
+                 // Navigator.push(
+                 //   context,
+                 //   MaterialPageRoute(builder: (context) => const StartTrivia()),
+                 // );
                  Navigator.push(
-                   context,
-                   MaterialPageRoute(builder: (context) => const StartTrivia()),
+                     context,
+                     MaterialPageRoute(builder: (BuildContext context) => StartTrivia())
                  );
                },
 
